@@ -210,7 +210,7 @@ void Task_DisplayUpdate(void)
                 OLED_ShowString(2, 1, "Status:Running");
             else
                 OLED_ShowString(2, 1, "Status:Stopped");
-            snprintf(str, sizeof(str), "Time:%lus", Scheduler_GetTick()/1000);
+            snprintf(str, sizeof(str), "Time:%us", (unsigned int)(Scheduler_GetTick()/1000));
             OLED_ShowString(3, 1, str);
             break;
     }

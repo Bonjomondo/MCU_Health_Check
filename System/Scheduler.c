@@ -86,6 +86,7 @@ void Scheduler_Run(void)
         if(tasks[i].enable && tasks[i].func)
         {
             // 使用无符号整数差值比较，即使溢出也能正确工作
+            // 原理：(a - b) >= period 在模运算下等价于 a >= b + period
             if((currentTick - tasks[i].lastRun) >= tasks[i].period)
             {
                 tasks[i].func();
