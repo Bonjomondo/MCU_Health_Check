@@ -24,6 +24,9 @@
 #define W25Q64_READ_DATA                0x03
 #define W25Q64_FAST_READ                0x0B
 
+// W25Q64超时定义
+#define W25Q64_TIMEOUT_COUNT            100000  // 等待忙超时计数
+
 void W25Q64_Init(void);
 void W25Q64_ReadID(uint8_t *MID, uint16_t *DID);
 void W25Q64_PageWrite(uint32_t Address, uint8_t *DataArray, uint16_t Count);

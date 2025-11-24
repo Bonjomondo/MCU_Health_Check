@@ -79,6 +79,9 @@ void SHT30_ReadData(SHT30_Data *data)
     uint16_t temp, humi;
     uint8_t i;
     
+    // 参数校验
+    if(data == 0) return;
+    
     // 发送测量命令
     SHT30_WriteCmd(SHT30_CMD_MEAS_HIGH);
     Delay_ms(20);

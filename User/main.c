@@ -16,7 +16,6 @@
 // 全局变量
 uint8_t currentPage = 0;  // 当前显示页面
 uint8_t measurementActive = 0;  // 测量激活标志
-uint32_t idleTime = 0;  // 空闲计时
 uint32_t lastActivityTime = 0;  // 上次活动时间
 
 // 传感器数据
@@ -52,9 +51,13 @@ void Task_HeartRateSpO2(void)
             static uint32_t lastBeat = 0;
             uint32_t currentTime = Scheduler_GetTick();
             
-            if(currentTime - lastBeat > 300)  // 防止误触发
+            if(currentTime - lastBeat > 300 && currentTime - lastBeat < 3000)  // 防止误触发和除零错误
             {
-                heartRate = 60000 / (currentTime - lastBeat);
+                uint32_t interval = currentTime - lastBeat;
+                uint32_t hr = 60000 / interval;
+                if(hr <= 255) {
+                    heartRate = (uint8_t)hr;
+                }
                 lastBeat = currentTime;
                 
                 // 简化的SpO2计算
@@ -152,10 +155,10 @@ void Task_IdleAlert(void)
   */
 void Task_DataTransmit(void)
 {
-    char buffer[64];
+    char buffer[128];
     
-    // 通过串口发送数据（HC-05蓝牙）
-    sprintf(buffer, "HR:%d,SpO2:%d,Temp:%.1f,EnvT:%.1f,Hum:%.1f\r\n",
+    // 通过串口发送数据（HC-05蓝牙）- 使用snprintf防止缓冲区溢出
+    snprintf(buffer, sizeof(buffer), "HR:%d,SpO2:%d,Temp:%.1f,EnvT:%.1f,Hum:%.1f\r\n",
             heartRate, spo2, bodyTemp, sht30Data.Temperature, sht30Data.Humidity);
     Serial_SendString(1, buffer);
 }

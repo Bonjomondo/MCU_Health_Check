@@ -12,6 +12,9 @@
 #define DS18B20_CONVERT_T       0x44
 #define DS18B20_READ_SCRATCHPAD 0xBE
 
+// DS18B20时序定义
+#define DS18B20_CONVERSION_TIME_MS  750  // 温度转换时间
+
 void DS18B20_Init(void);
 uint8_t DS18B20_Reset(void);
 void DS18B20_WriteByte(uint8_t Byte);

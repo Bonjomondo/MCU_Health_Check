@@ -71,6 +71,8 @@ void Scheduler_AddTask(TaskFunc func, uint32_t period)
   * 函    数：运行调度器
   * 参    数：无
   * 返 回 值：无
+  * 注意事项：系统运行时间约49天后uint32_t会溢出，
+  *          但由于使用的是无符号整数差值比较，在溢出后仍能正常工作
   */
 void Scheduler_Run(void)
 {
@@ -83,6 +85,7 @@ void Scheduler_Run(void)
     {
         if(tasks[i].enable && tasks[i].func)
         {
+            // 使用无符号整数差值比较，即使溢出也能正确工作
             if((currentTick - tasks[i].lastRun) >= tasks[i].period)
             {
                 tasks[i].func();

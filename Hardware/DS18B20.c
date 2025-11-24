@@ -175,7 +175,7 @@ float DS18B20_ReadTemperature(void)
     DS18B20_Reset();
     DS18B20_WriteByte(DS18B20_SKIP_ROM);
     DS18B20_WriteByte(DS18B20_CONVERT_T);
-    Delay_ms(750);
+    Delay_ms(DS18B20_CONVERSION_TIME_MS);
     
     DS18B20_Reset();
     DS18B20_WriteByte(DS18B20_SKIP_ROM);
