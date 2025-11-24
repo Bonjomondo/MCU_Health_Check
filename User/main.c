@@ -178,29 +178,29 @@ void Task_DisplayUpdate(void)
     {
         case 0:  // 主页 - 心率和血氧
             OLED_ShowString(1, 1, "Health Monitor");
-            sprintf(str, "HR:%3dbpm", heartRate);
+            snprintf(str, sizeof(str), "HR:%3dbpm", heartRate);
             OLED_ShowString(2, 1, str);
-            sprintf(str, "SpO2:%3d%%", spo2);
+            snprintf(str, sizeof(str), "SpO2:%3d%%", spo2);
             OLED_ShowString(3, 1, str);
-            sprintf(str, "Temp:%.1fC", bodyTemp);
+            snprintf(str, sizeof(str), "Temp:%.1fC", bodyTemp);
             OLED_ShowString(4, 1, str);
             break;
             
         case 1:  // 环境监测
             OLED_ShowString(1, 1, "Environment");
-            sprintf(str, "Temp:%.1fC", sht30Data.Temperature);
+            snprintf(str, sizeof(str), "Temp:%.1fC", sht30Data.Temperature);
             OLED_ShowString(2, 1, str);
-            sprintf(str, "Humi:%.1f%%", sht30Data.Humidity);
+            snprintf(str, sizeof(str), "Humi:%.1f%%", sht30Data.Humidity);
             OLED_ShowString(3, 1, str);
             break;
             
         case 2:  // 运动状态
             OLED_ShowString(1, 1, "Motion Status");
-            sprintf(str, "AX:%6d", mpu6050Data.Accel_X);
+            snprintf(str, sizeof(str), "AX:%6d", mpu6050Data.Accel_X);
             OLED_ShowString(2, 1, str);
-            sprintf(str, "AY:%6d", mpu6050Data.Accel_Y);
+            snprintf(str, sizeof(str), "AY:%6d", mpu6050Data.Accel_Y);
             OLED_ShowString(3, 1, str);
-            sprintf(str, "AZ:%6d", mpu6050Data.Accel_Z);
+            snprintf(str, sizeof(str), "AZ:%6d", mpu6050Data.Accel_Z);
             OLED_ShowString(4, 1, str);
             break;
             
@@ -210,7 +210,7 @@ void Task_DisplayUpdate(void)
                 OLED_ShowString(2, 1, "Status:Running");
             else
                 OLED_ShowString(2, 1, "Status:Stopped");
-            sprintf(str, "Time:%lus", Scheduler_GetTick()/1000);
+            snprintf(str, sizeof(str), "Time:%lus", Scheduler_GetTick()/1000);
             OLED_ShowString(3, 1, str);
             break;
     }
