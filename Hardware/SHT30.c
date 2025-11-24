@@ -53,6 +53,9 @@ static uint8_t SHT30_CalcCRC(uint8_t *data, uint8_t len)
     uint8_t crc = 0xFF;
     uint8_t i, j;
     
+    // 参数校验
+    if(data == NULL) return 0;
+    
     for(i = 0; i < len; i++)
     {
         crc ^= data[i];

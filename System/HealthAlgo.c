@@ -124,7 +124,7 @@ uint8_t HealthAlgo_CalculateSpO2(HealthAlgo *algo)
     redAC = (redMax - redMin) / 2;
     
     // 计算R值
-    if(irDC == 0 || redAC == 0)
+    if(irDC == 0 || redAC == 0 || redDC == 0)
         return 0;
     
     R = ((float)redAC / (float)redDC) / ((float)irAC / (float)irDC);

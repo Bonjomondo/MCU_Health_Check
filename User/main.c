@@ -34,6 +34,10 @@ uint8_t spo2 = 0;
 #define SPO2_LOW_THRESHOLD  90
 #define IDLE_ALERT_TIME     1800000  // 30分钟(ms)
 
+// 心率检测参数
+#define MIN_HEARTBEAT_INTERVAL_MS  300   // 最小心跳间隔(ms) - 对应200 bpm
+#define MAX_HEARTBEAT_INTERVAL_MS  3000  // 最大心跳间隔(ms) - 对应20 bpm
+
 /**
   * 函    数：心率血氧测量任务
   * 参    数：无
@@ -51,7 +55,8 @@ void Task_HeartRateSpO2(void)
             static uint32_t lastBeat = 0;
             uint32_t currentTime = Scheduler_GetTick();
             
-            if(currentTime - lastBeat > 300 && currentTime - lastBeat < 3000)  // 防止误触发和除零错误
+            if(currentTime - lastBeat > MIN_HEARTBEAT_INTERVAL_MS && 
+               currentTime - lastBeat < MAX_HEARTBEAT_INTERVAL_MS)  // 防止误触发和除零错误
             {
                 uint32_t interval = currentTime - lastBeat;
                 uint32_t hr = 60000 / interval;
@@ -249,7 +254,7 @@ void Task_KeyScan(void)
         dataToSave[0] = heartRate;
         dataToSave[1] = spo2;
         dataToSave[2] = (uint8_t)bodyTemp;
-        dataToSave[3] = (uint8_t)(bodyTemp * 10) - dataToSave[2] * 10;
+        dataToSave[3] = (uint8_t)((bodyTemp - dataToSave[2]) * 10);  // 正确提取小数部分
         
         W25Q64_SectorErase(0x000000);
         W25Q64_PageWrite(0x000000, dataToSave, 16);
