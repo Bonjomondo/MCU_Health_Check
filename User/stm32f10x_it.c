@@ -128,13 +128,11 @@ void PendSV_Handler(void)
 }
 
 /**
-  * @brief  This function handles SysTick Handler.
+  * @brief  SysTick_Handler is now defined in Scheduler.c
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
-{
-}
+// void SysTick_Handler(void) - Moved to Scheduler.c
 
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */

@@ -1,0 +1,47 @@
+# Keil MDK-ARM files
+*.uvguix*
+*.bak
+*.dep
+*.uvopt
+*.uvoptx
+*.plg
+*.tra
+*.o
+*.d
+*.crf
+*.htm
+*.map
+*.lst
+*.lnp
+*.axf
+*.sct
+*.build_log.htm
+
+# Build directories
+/Objects/
+/Listings/
+/DebugConfig/
+/RTE/
+
+# EventRecorder
+*.scvd
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+._*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Log files
+*.log
+
+# Other
+keilkill.bat
