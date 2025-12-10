@@ -2,7 +2,7 @@
 #include "SHT30.h"
 #include "MyI2C.h"
 #include "Delay.h"
-
+#include <stddef.h>
 /**
   * 函    数：SHT30写命令
   * 参    数：cmd 命令
